@@ -1,0 +1,129 @@
+.home-page {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.header {
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.home-content {
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.leaderboard {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  padding-right: 30px; /* Added space to the right for sorting icon */
+}
+
+td {
+  background-color: white;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+}
+
+button svg {
+  transition: transform 0.2s ease;
+}
+
+button:hover svg {
+  transform: scale(1.2);
+}
+
+button:focus {
+  outline: none;
+}
+
+button svg {
+  margin-left: 5px;
+}
+
+td,
+th {
+  text-align: center;
+}
+
+/* Filters placed below the table */
+.filters {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.filters select {
+  padding: 8px;
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.filters button {
+  padding: 8px 15px;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+
+  .leaderboard {
+    overflow-x: auto;
+  }
+}
