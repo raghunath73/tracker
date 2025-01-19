@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './HomePage.css';
-import { FaSortUp, FaSortDown } from 'react-icons/fa';
+import { FaSortUp, FaSortDown } from 'react-icons/fa'; // Sorting icons
 
 const HomePage = () => {
+  // Define the students state here
   const [students, setStudents] = useState([]);
+
   const [sortOrder, setSortOrder] = useState({
     rollNo: 'asc',
     totalProblemsSolved: 'asc',
@@ -16,17 +17,23 @@ const HomePage = () => {
     leetcodeSolved: 'asc',
   });
 
-  // Fetch data from Flask API
   useEffect(() => {
-    axios
-      .get('http://127.0.0.1:5000/api/students') // Flask API endpoint
+    fetch('http://localhost:5000/api/students')
       .then((response) => {
-        setStudents(response.data);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Fetched data:', data); // Log the data to check if it's being fetched correctly
+        setStudents(data); // Update students state with the fetched data
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error); // Log errors if any occur
       });
   }, []);
+  
 
   const handleSort = (column) => {
     const order = sortOrder[column] === 'asc' ? 'desc' : 'asc';
@@ -125,19 +132,25 @@ const HomePage = () => {
               </tr>
             </thead>
             <tbody>
-              {students.map((student, index) => (
-                <tr key={index}>
-                  <td>{student.rollNo}</td>
-                  <td>{student.totalProblemsSolved}</td>
-                  <td>{student.section}</td>
-                  <td>{student.platform_data.codeforces?.rating || 'N/A'}</td>
-                  <td>{student.platform_data.codeforces?.solved || 'N/A'}</td>
-                  <td>{student.platform_data.codechef?.rating || 'N/A'}</td>
-                  <td>{student.platform_data.codechef?.solved || 'N/A'}</td>
-                  <td>{student.platform_data.leetcode?.rating || 'N/A'}</td>
-                  <td>{student.platform_data.leetcode?.solved || 'N/A'}</td>
+              {students.length > 0 ? (
+                students.map((student, index) => (
+                  <tr key={index}>
+                    <td>{student.rollNo}</td>
+                    <td>{student.totalProblemsSolved}</td>
+                    <td>{student.section}</td>
+                    <td>{student.platform_data.codeforces?.rating || 'N/A'}</td>
+                    <td>{student.platform_data.codeforces?.solved || 'N/A'}</td>
+                    <td>{student.platform_data.codechef?.rating || 'N/A'}</td>
+                    <td>{student.platform_data.codechef?.solved || 'N/A'}</td>
+                    <td>{student.platform_data.leetcode?.rating || 'N/A'}</td>
+                    <td>{student.platform_data.leetcode?.solved || 'N/A'}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="9">No student data available.</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
